@@ -1,0 +1,102 @@
+{
+  "today": "2026-09-26",
+  "segments": [
+    {"segment_id": "SEG-A", "name": "甲省界至江洲段", "provinces": ["甲省", "乙省"]},
+    {"segment_id": "SEG-B", "name": "江洲至海湾段", "provinces": ["乙省"]}
+  ],
+  "plan_versions": [
+    {"version_id": "PV-1", "label": "2026版预可研方案", "effective": "2026-01-15", "supersedes": null}
+  ],
+  "cities": [
+    {"node_id": "CITY-JZ", "name": "江洲市", "segment_id": "SEG-A"},
+    {"node_id": "CITY-HW", "name": "海湾市", "segment_id": "SEG-B"}
+  ],
+  "industries": [
+    {"node_id": "IND-PORT", "name": "江洲港航枢纽", "segment_id": "SEG-A", "sector": "港航物流"},
+    {"node_id": "IND-DATA", "name": "海湾数据产业园", "segment_id": "SEG-B", "sector": "数据服务"}
+  ],
+  "conditions": [
+    {"condition_id": "CON-LAND-01", "kind": "用地", "segment_id": "SEG-A", "plan_version": "PV-1", "cleared": true},
+    {"condition_id": "CON-SEA-01", "kind": "用海", "segment_id": "SEG-B", "plan_version": "PV-1", "cleared": false},
+    {"condition_id": "CON-ENERGY-01", "kind": "用能", "segment_id": "SEG-A", "plan_version": "PV-1", "cleared": true}
+  ],
+  "rules": [
+    {"rule_id": "RULE-JA-LOAD", "region": "甲省", "category": "桥梁荷载", "clause": "甲省桥梁荷载标准条文", "status": "有效"},
+    {"rule_id": "RULE-YI-LOAD", "region": "乙省", "category": "桥梁荷载", "clause": "乙省桥梁荷载标准条文", "status": "有效"},
+    {"rule_id": "RULE-EIA-01", "region": "乙省", "category": "海域环评", "clause": "海域环评技术导则", "status": "有效"}
+  ],
+  "provisions": [
+    {"provision_id": "INF-COMPUTE-01", "kind": "算力", "segment_id": "SEG-B", "ready": true},
+    {"provision_id": "INF-NET-01", "kind": "通信", "segment_id": "SEG-A", "ready": false}
+  ],
+  "requirements": [
+    {"requirement_id": "RISK-TYPHOON-01", "segment_id": "SEG-B", "description": "台风季桥梁抗风韧性要求", "mitigated": false}
+  ],
+  "commitments": [
+    {
+      "commitment_id": "COM-1",
+      "department": "交通运输厅",
+      "scope": ["CON-LAND-01"],
+      "not_before": "2026-01-01",
+      "not_after": "2028-12-31",
+      "required_signatories": [],
+      "status": "正式放行",
+      "released_on": "2026-03-02",
+      "evidence": [
+        {"evidence_id": "EV-COM1-1", "kind": "正式函件", "title": "关于通道用地保障的函", "issued": "2026-03-02", "attachment_id": null}
+      ],
+      "signatures": {}
+    },
+    {
+      "commitment_id": "COM-2",
+      "department": "能源局",
+      "scope": ["CON-ENERGY-01"],
+      "not_before": "2026-01-01",
+      "not_after": "2027-12-31",
+      "required_signatories": [],
+      "status": "口头赞同",
+      "released_on": null,
+      "evidence": [
+        {"evidence_id": "EV-COM2-1", "kind": "视频发言", "title": "八月协调会视频发言记录", "issued": "2026-08-12", "attachment_id": "ATT-MINUTES-1"}
+      ],
+      "signatures": {}
+    },
+    {
+      "commitment_id": "COM-3",
+      "department": "海事局",
+      "scope": ["CON-SEA-01"],
+      "not_before": "2026-01-01",
+      "not_after": "2027-12-31",
+      "required_signatories": ["海事局", "生态环境厅"],
+      "status": "口头赞同",
+      "released_on": null,
+      "evidence": [
+        {"evidence_id": "EV-COM3-1", "kind": "正式函件", "title": "海事局用海条件会签意见", "issued": "2026-07-01", "attachment_id": null}
+      ],
+      "signatures": {
+        "海事局": {"evidence_id": "EV-COM3-1", "kind": "正式函件", "title": "海事局用海条件会签意见", "issued": "2026-07-01", "attachment_id": null}
+      }
+    }
+  ],
+  "approvals": [
+    {"approval_id": "APR-1", "name": "用地预审", "segment_id": "SEG-A", "required_commitments": ["COM-1"], "required_conditions": ["CON-LAND-01"], "required_rules": [], "status": "待确认"},
+    {"approval_id": "APR-2", "name": "用海报批", "segment_id": "SEG-B", "required_commitments": ["COM-3"], "required_conditions": ["CON-SEA-01"], "required_rules": ["RULE-EIA-01"], "status": "待确认"},
+    {"approval_id": "APR-3", "name": "节能评估", "segment_id": "SEG-A", "required_commitments": ["COM-2"], "required_conditions": ["CON-ENERGY-01"], "required_rules": [], "status": "待确认"},
+    {"approval_id": "APR-4", "name": "初步设计批复", "segment_id": "SEG-A", "required_commitments": ["COM-1"], "required_conditions": [], "required_rules": ["RULE-JA-LOAD", "RULE-YI-LOAD"], "status": "待确认"}
+  ],
+  "milestones": [
+    {"milestone_id": "MIL-1", "name": "初步设计完成", "planned": "2026-10-31", "critical": true, "required_approvals": ["APR-1", "APR-3"]},
+    {"milestone_id": "MIL-2", "name": "海域段开工", "planned": "2027-03-31", "critical": true, "required_approvals": ["APR-2"]},
+    {"milestone_id": "MIL-3", "name": "全线贯通", "planned": "2028-12-31", "critical": true, "required_approvals": ["APR-4"]},
+    {"milestone_id": "MIL-9", "name": "临建设施验收", "planned": "2026-08-31", "critical": false, "required_approvals": []}
+  ],
+  "blockers": [
+    {"blocker_id": "BLK-1", "title": "海域段生态红线调整", "segment_id": "SEG-B", "affects_milestones": ["MIL-2"], "delay_days": 120, "resolved": false},
+    {"blocker_id": "BLK-2", "title": "施工便道征拆滞后", "segment_id": "SEG-A", "affects_milestones": ["MIL-9"], "delay_days": 30, "resolved": false}
+  ],
+  "attachments": [
+    {"attachment_id": "ATT-ECO-MAP", "title": "海域生态敏感区分布图", "sensitivity": "敏感", "authorized_regions": ["乙省"]},
+    {"attachment_id": "ATT-MINUTES-1", "title": "八月协调会纪要", "sensitivity": "内部", "authorized_regions": []},
+    {"attachment_id": "ATT-NOTICE-1", "title": "通道规划公示", "sensitivity": "公开", "authorized_regions": []}
+  ]
+}
